@@ -1,4 +1,6 @@
-$dockerImageName = $(awk 'NR==1{print $2}' Dockerfile)
+#!/bin/bash
+
+$dockerImageName=$(awk 'NR==1{print $2}' Dockerfile)
 echo $dockerImageName
 
 docker run --rm -v $WORKSPACE:/root/.cache aquasec/trivy image --severity CRITICAL --exit-code 1  $dockerImageName
