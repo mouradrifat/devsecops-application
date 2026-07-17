@@ -1,7 +1,5 @@
 package main
 
-package main
-
 deny[msg] {
     input[i].Cmd == "FROM"
     not startswith(input[i].Value[0], "eclipse-temurin")
