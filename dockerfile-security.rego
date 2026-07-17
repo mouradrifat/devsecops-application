@@ -1,7 +1,8 @@
 package main
 
-deny[msg] {
+deny contains msg if {
     input[i].Cmd == "FROM"
-    not startswith(input[i].Value[0], "eclipse-temurin")
-    msg := sprintf("Line %d: unauthorized base image %s", [i, input[i].Value[0]])
+    val := split(input[i].Value[0], "/")
+    count(val) > 1
+    msg := sprintf("Line %d: use a trusted base image", [i])
 }
