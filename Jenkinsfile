@@ -26,6 +26,12 @@ pipeline {
             }
         }
 
+        stage('Vulnerability Scan - OPA Conftest') {
+            steps {
+                sh 'docker run --rm -v /var/lib/jenkins/workspace/devsecops-pipeline:/project -w /project openpolicyagent/conftest test --policy dockerfile-security.rego Dockerfile'
+            }
+        }
+
         stage('Docker build') {
             steps {
                 sh 'docker build -t devsecops-application:latest .'

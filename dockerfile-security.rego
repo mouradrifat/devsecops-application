@@ -1,8 +1,13 @@
 package main
 
 deny contains msg if {
-    input[i].Cmd == "FROM"
-    val := split(input[i].Value[0], "/")
-    count(val) > 1
-    msg := sprintf("Line %d: use a trusted base image", [i])
+    input.kind = "Service"
+    not input.spec.type = "NodePort"
+    msg := Service should be NodePort
+}
+
+deny contains msg if {
+    input.kind = "Deployment"
+    not input.spec.template.spec.containers[0].securityContext.runAsNonRoot = true
+    msg := Containers must not run as root
 }
