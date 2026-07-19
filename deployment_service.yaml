@@ -21,10 +21,9 @@ spec:
       containers:
       - image: replace
         name: devsecops-container
-        imagePullPolicy: Never
         securityContext:
           runAsNonRoot: true
-          runAsUser: 100
+
 
 ---
 apiVersion: v1
