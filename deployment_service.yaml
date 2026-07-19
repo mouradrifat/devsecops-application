@@ -6,7 +6,7 @@ metadata:
     app: devsecops
 
 spec:
-  replicas: 1
+  replicas: 2
 
   selector:
     matchLabels:
@@ -19,16 +19,14 @@ spec:
 
     spec:
       containers:
-      - name: devsecops-container
-        image: devsecops-application:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
+      - image: replace
+        name: devsecops-container
+        imagePullPolicy: Never
         securityContext:
           runAsNonRoot: true
+          runAsUser: 100
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
