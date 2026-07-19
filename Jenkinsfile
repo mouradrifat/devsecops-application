@@ -34,7 +34,9 @@ pipeline {
 
         stage('Docker build') {
             steps {
-                sh 'docker build -t devsecops-application:latest .'
+                sh 'docker build -t devsecops-application:${GIT_COMMIT} .'
+                sh 'docker save devsecops-application:${GIT_COMMIT} -o app.tar'
+                sh 'k3s ctr images import app.tar'
             }
         }
 
